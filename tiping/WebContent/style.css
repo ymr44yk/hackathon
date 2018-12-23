@@ -1,0 +1,31 @@
+@charset "UTF-8"
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+body {
+  background: #ddf;
+  font: 30px sans-serif;
+}
+#frame{
+  background: #ffffff;
+  font: 30px sans-serif;
+  border:8px double navy;
+  width:400px;
+  height:300px;
+  font-size:18pt;
+  overflow:auto;
+}
+#frame:first-letter{
+  color:#5bc0de;
+}
+#restart{
+  margin-left: 10px;
+  background: #BDBDBD;
+  border-bottom: solid 3px #888;
+  border-radius: 20px;
+  width: 100px;
+  height: 50px;
+}
