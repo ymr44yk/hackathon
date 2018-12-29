@@ -9,7 +9,9 @@ var mondai = "";
 //何問目か格納
 var count = 0;
 //問題数
-var queNum = 5;
+var queNum = 9;
+//現在のパネル
+var current = "";
 
 /*--------------------------------------------*/
 
@@ -55,16 +57,31 @@ function gameSet(){
   }
     
   //問題文の作成
-  for ( var i = 0 ; i < queNum ; i++){
-    mondai =  mondai + Alphabet[rand[i]];
+//  for ( var i = 0 ; i < queNum ; i++){
+//    mondai =  mondai + Alphabet[rand[i]];
+//  }
+
+  mondai = "<table id='qTable'>";
+  
+  for(var i = 0; i < 3; i++ ){
+    mondai += "<tr>";
+    for(var j = 0; j < 3; j++) {
+      var idNum = i * 3 + j;
+      mondai += "<td id='word"+idNum+"' class = 'panel'>"+Alphabet[rand[idNum]]+"</td>";
+    }
+    mondai += "</tr>";
   }
+  mondai += "</table>";
+    
+
   
   //問題枠に表示する
-  document.getElementById("frame").innerHTML = mondai;
+  document.getElementById("container").innerHTML = mondai;
 }
 
 //キー入力を受け取る
 function typeGame(){
+    current = "";
     //入力されたキーコードと、問題文のキーコードを比較
     if(KEYS[kCode[rand[count]]]){
         //カウント数を＋１にする
@@ -75,10 +92,14 @@ function typeGame(){
             //問題文の頭の一文字を切り取る
             mondai = mondai.substring(1,mondai.Length);
             //問題枠に表示する
-            document.getElementById("frame").innerHTML = mondai;
+//            document.getElementById("container").innerHTML = mondai;
+            //打鍵した文字を消す
+            current = "word";
+            current += count-1;
+            document.getElementById(current).style.background = "#ff000000";
         }else{
             //問題枠にゲーム終了を表示
-            document.getElementById("frame").innerHTML = "終了します";
+            document.getElementById("container").innerHTML = "終了します";
         }
     }
 }
