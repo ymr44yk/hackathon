@@ -28,6 +28,7 @@ body {
   border-radius: 20px;
   width: 100px;
   height: 50px;
+  visibility: hidden
 }
 
 #container{
@@ -52,4 +53,3 @@ body {
 
 
 
-}
