@@ -9,7 +9,7 @@ var mondai = "";
 //何文字目か格納
 var count = 0;
 //パネルの数
-var queNum = 15;
+var queNum = 40;
 //問題数
 var qCount = 3;
 //何問目か格納
@@ -50,14 +50,18 @@ var Alphabet = new Array("Ａ","Ｂ","Ｃ","Ｄ","Ｅ","Ｆ","Ｇ","Ｈ","Ｉ",
                          "Ｊ","Ｋ","Ｌ","Ｍ","Ｎ","Ｏ","Ｐ","Ｑ","Ｒ",
                          "Ｓ","Ｔ","Ｕ","Ｖ","Ｗ","Ｘ","Ｙ","Ｚ");
 
+//問題用画像のパスを格納する配列
+var imageArray = new Array("animal_gorilla_drumming.png",
+                           "animal_lesser_panda_stand.png",
+                           "eto_inoshishi_banzai.png");                         
 
 //回答ボタン用配列
 //もっといい書き方があるはずだがうまくいかないのでとりあえずこれで。。。
 var Question =　new Array();
 
-var Question1 = {select1:'select1', select2:'select2', select3:'select3', right:'select1'};
-var Question2 = {select1:'select1', select2:'select2', select3:'select3', right:'select2'};
-var Question3 = {select1:'select1', select2:'select2', select3:'select3', right:'select3'};
+var Question1 = {select1:'ゴリラ', select2:'チンパンジー', select3:'ヒト', right:'ゴリラ'};
+var Question2 = {select1:'コアラ', select2:'レッサーパンダ', select3:'タヌキ', right:'レッサーパンダ'};
+var Question3 = {select1:'カバ', select2:'ブタ', select3:'イノシシ', right:'イノシシ'};
 
 Question.push(Question1); 
 Question.push(Question2); 
@@ -101,13 +105,15 @@ function gameSet(){
     rand[i] = Math.floor( Math.random() * 26 );
   }
 
+  //画像部分を初期値に設定
+  mondai = "<img id='qImage' src=" + imageArray[qCurrent-1] + "></img>"
   //パネル作成
-  mondai = "<table id='qTable'>";
+  mondai += "<table id='qTable'>";
   
-  for(var i = 0; i < 3; i++ ){
+  for(var i = 0; i < 5; i++ ){
     mondai += "<tr>";
-    for(var j = 0; j < 5; j++) {
-      var idNum = i * 5 + j;
+    for(var j = 0; j < 8; j++) {
+      var idNum = i * 8 + j;
       mondai += "<td id='word"+idNum+"' class = 'panel'>"+Alphabet[rand[idNum]]+"</td>";
     }
     mondai += "</tr>";
