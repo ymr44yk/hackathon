@@ -4,6 +4,8 @@
 
 //0~25までの乱数を格納する配列
 var rand = new Array();
+//打鍵対象をランダムにするための配列
+var panelRand = new Array();
 //の文字列を格納
 var mondai = "";
 //何文字目か格納
@@ -68,6 +70,10 @@ Question.push(Question2);
 Question.push(Question3); 
 
 /*--------------------------------------------*/
+//一回目の呼び出し
+gameSet();
+
+/*--------------------------------------------*/
 //初期化関数
 function initialize(){
   qCurrent = 0;
@@ -78,7 +84,6 @@ function initialize(){
   document.getElementById("answerButton3").style.visibility = "visible";  
   //Restartボタン表示
   document.getElementById("restart").style.visibility = "hidden";
-  gameSet();
 }
 
 //タイピングゲームの問題をセットする
@@ -105,6 +110,9 @@ function gameSet(){
     rand[i] = Math.floor( Math.random() * 26 );
   }
 
+  //ランダム配列を定義
+  panelRand = createRandomArray(queNum);
+
   //画像部分を初期値に設定
   mondai = "<img id='qImage' src=" + imageArray[qCurrent-1] + "></img>"
   //パネル作成
@@ -129,19 +137,19 @@ function gameSet(){
   document.getElementById("answerButton3").value = Question[qCurrent-1].select3;  
 
   //打鍵対象の色を変える
-  document.getElementById("word0").style.background = "#5bc0de";
+  var firstPanel = "word" + (panelRand[0]);
+  document.getElementById(firstPanel).style.background = "#5bc0de";
 }
 
 //キー入力を受け取る
 function typeGame() {
   //入力されたキーコードと、問題文のキーコードを比較
-  if (KEYS[kCode[rand[count]]]) {
+  if (KEYS[kCode[rand[panelRand[count]]]]) {
     //カウント数を＋１にする
     count++;
-    mondai = mondai.substring(1, mondai.Length);
     //打鍵した文字を消す
-    var current = "word" + (count - 1);
-    var next = "word" + count;
+    var current = "word" + (panelRand[count-1]);
+    var next = "word" + panelRand[count];
     document.getElementById(current).style.background = "#ff000000";
     document.getElementById(next).style.background = "#5bc0de";
   }
@@ -167,6 +175,24 @@ function checkAnswer(){
   }
 }
 
-/*--------------------------------------------*/
-//一回目の呼び出し
-gameSet();
+//ランダム配列作成
+//1～sizeまでの値をランダムに格納した配列を返却する
+function createRandomArray(size){
+  var tmpArray = new Array();
+  for (let i = 0; i < size; i++) {
+    tmpArray.push(i);  
+  }
+  var tmpLength = tmpArray.length;
+
+  while(tmpLength){
+    var j = Math.floor(Math.random() * tmpLength);
+    var t = tmpArray[--tmpLength];
+    tmpArray[tmpLength] = tmpArray[j];
+    tmpArray[j] = t;
+  }
+
+  return tmpArray;
+
+}
+
+
